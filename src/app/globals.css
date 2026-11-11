@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --cocoa-950: #0f0805;
+  --cocoa-900: #1a0f09;
+  --cocoa-800: #2a1810;
+  --gold: #c8a265;
+  --gold-bright: #e2c48d;
+  --gold-deep: #9c7a43;
+  --cream: #f4e9d8;
+  --cream-muted: #d9c8b0;
+  /* Hikâye bölümü: sıcak krem editoryal palet */
+  --paper: #f1e7d8;
+  --ink: #2c1b15;
+  --brass: #a47c4d;
+  --brass-deep: #7a5a33;
+  /* Farkımız bölümü: koyu kakao, sıcak krem, şampanya altını */
+  --roast: #21140f;
+  --linen: #f4e8d9;
+  --champagne: #d5ad76;
+}
+
+@theme inline {
+  --color-cocoa-950: var(--cocoa-950);
+  --color-cocoa-900: var(--cocoa-900);
+  --color-cocoa-800: var(--cocoa-800);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-deep: var(--gold-deep);
+  --color-cream: var(--cream);
+  --color-cream-muted: var(--cream-muted);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-brass: var(--brass);
+  --color-brass-deep: var(--brass-deep);
+  --color-roast: var(--roast);
+  --color-linen: var(--linen);
+  --color-champagne: var(--champagne);
+  --font-display: var(--font-bodoni), serif;
+  --font-sans: var(--font-jost), system-ui, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--cocoa-950);
+  color: var(--cream);
+  font-family: var(--font-jost), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--cocoa-950);
+}
+
+/* Katman içinde: bileşenler kendi odak stilini (ör. arama kutusu) Tailwind ile ezebilsin */
+@layer base {
+  /* Tailwind v4 butonlarda varsayılan el imlecini kaldırıyor; tıklanabilir öğelerde geri getir */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="option"],
+  summary {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--gold-bright);
+    outline-offset: 4px;
+  }
+}
+
+html {
+  scrollbar-color: var(--gold-deep) var(--cocoa-950);
+}
+
+/* Bodoni Moda büyük boyutlarda otomatik olarak çok ince kıl çizgilere geçer (opsz ekseni).
+   Optik boyutu orta değere sabitleyerek ekranda daha net ve dolgun görünmesini sağlar. */
+.display-sturdy {
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 28;
+}
+
+/* Sayfa içi arama: bulunan metni kısa süre altın tonla vurgular */
+.search-flash {
+  border-radius: 2px;
+  animation: search-flash 2.2s ease-out;
+}
+@keyframes search-flash {
+  0%, 35% { background-color: rgba(213, 173, 118, 0.38); box-shadow: 0 0 0 6px rgba(213, 173, 118, 0.38); }
+  100% { background-color: transparent; box-shadow: 0 0 0 6px transparent; }
+}
