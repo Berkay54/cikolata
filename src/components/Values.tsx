@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import Image from "next/image";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -12,6 +12,8 @@ type Value = {
   no: string;
   title: string;
   text: string;
+  image: string;
+  alt: string;
 };
 
 const VALUES: Value[] = [
@@ -19,16 +21,22 @@ const VALUES: Value[] = [
     no: "01",
     title: "Saf Kakao Yağı",
     text: "Çikolatanın doğal karakterini ve kadifemsi dokusunu koruyan özenli içerik seçimi.",
+    image: "/images/farkimiz/saf-kakao-yagi.jpg",
+    alt: "Işıkta parlayan, ipeksi dalgalar halinde akan erimiş çikolata",
   },
   {
     no: "02",
     title: "Artizan Teknik",
     text: "Her parçaya hayat veren el işçiliği, hassas temperleme ve ustalıkla tamamlanan özel dokunuşlar.",
+    image: "/images/farkimiz/artizan-teknik.jpg",
+    alt: "Ustanın elindeki spatuladan cam kaseye süzülen erimiş çikolata",
   },
   {
     no: "03",
     title: "Taze Malzemeler",
     text: "Gerçek meyve özleri, özenle seçilen kuruyemişler ve doğal baharatlarla zenginleşen lezzetler.",
+    image: "/images/farkimiz/taze-malzemeler.jpg",
+    alt: "Antep fıstığı, fındık ve karamel damlalarıyla kaplı el yapımı çikolata tabletleri",
   },
 ];
 
@@ -140,9 +148,16 @@ export default function Values() {
                   {/* Görsel: 16:9, mobilde her zaman üstte */}
                   <div className={`lg:col-span-7 ${textFirst ? "lg:order-2 lg:col-start-6" : "lg:col-start-1"}`}>
                     <div className="value-media group relative aspect-video overflow-hidden rounded-[4px] bg-linen/5">
-                      {/* Parallax için alan %5 taşırılır; gerçek görsel gelince aynı yere yerleşir */}
+                      {/* Parallax için alan %5 taşırılır */}
                       <div className="value-parallax absolute inset-x-0 -top-[2.5%] h-[105%]">
-                        <ImagePlaceholder label={`${v.title} görseli`} />
+                        <Image
+                          src={v.image}
+                          alt={v.alt}
+                          fill
+                          quality={88}
+                          sizes="(min-width: 1440px) 800px, (min-width: 1024px) 56vw, calc(100vw - 2.5rem)"
+                          className="object-cover"
+                        />
                       </div>
                     </div>
                   </div>
